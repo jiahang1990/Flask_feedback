@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ user.username }}
+{% endblock %}
+{% block content %}
+<div>
+  <p>Username: {{ user.username }} </p>
+  <p>Fullname: {{ user.first_name }} {{ user.last_name }}</p>
+  <p>Email: {{ user.email }}</p>
+</div>
+<div>
+  {% for feedback in user.feedbacks %}
+  <div>
+    {{ feedback.title }}
+    {{ feedback.content }}
+  </div>
+  <form>
+    <button formaction = '/feedback/{{ feedback.id }}/update'
+            formmethod = 'get'
+            class='btn btn-primary'>
+            Edit
+    </button>
+    <button formaction = '/feedback/{{ feedback.id }}/delete'
+            formmethod = 'post'
+            class='btn btn-danger'>
+            Delete
+    </button>
+  </form>
+  {% endfor %}
+</div>
+<div class = 'mt-4'>
+  <form>
+    <button formaction = '/users/{{ user.username }}/feedback/add'
+            formmethod = 'get'
+            class='btn btn-primary'>
+            Add Feedback
+    </button>
+    <button formaction = '/users/{{ user.username }}/delete'
+            formmethod = 'post'
+            class='btn btn-danger'>
+            Delete user
+    </button>
+  </form>
+</div>
+{% endblock %}
